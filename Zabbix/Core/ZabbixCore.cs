@@ -131,7 +131,6 @@ public class ZabbixCore : ICore
     public async Task<T> SendRequestAsync<T>(object? @params, string method, string? token)
     {
         var request = GetRequest(@params, method, token);
-        _httpClient.DefaultRequestHeaders.Add("content-type", "application/json-rpc");
 
         var requestData = new StringContent(JsonConvert.SerializeObject(request, _serializerSettings), Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync(_url, requestData).ConfigureAwait(false);
