@@ -68,6 +68,9 @@ public class HostFilterOptions : FilterOptions
     [JsonProperty("interfaceids")]
     public object? InterfaceIds { get; set; }
 
+    [JsonProperty("ip")]
+    public List<string>? Ips { get; set; }
+
     [JsonProperty("itemids")]
     public object? ItemIds { get; set; }
 

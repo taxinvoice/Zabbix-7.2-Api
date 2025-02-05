@@ -3,11 +3,11 @@
 This is a C# library designed to simplify interactions with the Zabbix API (version 7.2). It provides an intuitive way to perform operations (synchronously and asynchronously) such as creating, updating, deleting and getting entties for Zabbix.
 
 ## Still in Development
-Please note that this library is still under active development.
+Please note that this library is a fork of https://github.com/stefan-epic/Zabbix-6.0-Api with little changes for Zabbix version 7.2.
 
 ## Installation
 
-Currently, the library can be used by either cloning this repository or by installing the NuGet package https://www.nuget.org/packages/Zabbix.Api.NET/
+Currently, the library can be used by either cloning this repository or by installing the NuGet package https://www.nuget.org/packages/Zabbix7.Api.NET/
 ## Usage
 
 First, let's establish a connection to the Zabbix server using your credentials:

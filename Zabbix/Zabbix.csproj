@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -9,14 +9,14 @@
     <Authors>Stefan Hasler</Authors>
     <Company />
 	  <Version>0.1.0</Version>
-    <PackageId>$(AssemblyName).Api.NET</PackageId>
+    <PackageId>$(AssemblyName)7.Api.NET</PackageId>
     <Product />
     <Description>Library to communicate with the 7.2 Zabbix Api</Description>
     <Copyright>MIT License</Copyright>
     <PackageProjectUrl></PackageProjectUrl>
     <PackageIcon>zabbix_logo_icon_167937.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/stefan-epic/Zabbix-6.0-Api</RepositoryUrl>
+    <RepositoryUrl>https://github.com/c0c0bird/Zabbix-7.2-Api</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>Zabbix,Api-Library,zabbixapi</PackageTags>
     <IncludeSymbols>False</IncludeSymbols>
