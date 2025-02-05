@@ -21,7 +21,7 @@ namespace ZabbixIntegrationTests
 
         public TestBase()
         {
-            string url = "http://localhost/api_jsonrpc.php";
+            string url = "http://localhost:809/api_jsonrpc.php";
             string username = "Admin";
             string password = "zabbix";
             Core = new ZabbixCore(url, username, password);
@@ -43,7 +43,7 @@ namespace ZabbixIntegrationTests
             CleanUp();
         }
 
-        public void TestCycle<T>(T entity, string propertyName) where T : BaseEntity
+        public void TestCycle<T>(T entity, string propertyName, bool skipUpdate = false) where T : BaseEntity
         {
             var propInfo = Core.GetType().GetProperty(propertyName);
             Assert.IsNotNull(propInfo);
@@ -54,7 +54,12 @@ namespace ZabbixIntegrationTests
             Assert.IsNotNull(propVal);
 
             TestCreateInternal(entity, propVal, paramType, @params);
-            TestUpdateInternal(entity, propVal, paramType, @params);
+
+            if (!skipUpdate)
+            {
+                TestUpdateInternal(entity, propVal, paramType, @params);
+            }
+            
             TestDeleteInternal(entity, propVal, paramType, @params);
         }
         public void TestCycle<T>(T entity, string propertyName, List<string> setNullForUpdatePropNames) where T : BaseEntity
@@ -165,6 +170,8 @@ namespace ZabbixIntegrationTests
             TestHost = new Host("TestHost" + Id, new List<HostGroup>(){h});
             try
             {
+                // create method expects a group ID only
+                TestHost.Groups.First().Name = null;
                 TestHost.EntityId = Core.Hosts.Create(TestHost);
 
             }

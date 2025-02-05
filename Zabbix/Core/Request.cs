@@ -16,6 +16,4 @@ internal class Request
     [JsonProperty("params")] public object? Params { get; set; }
 
     [JsonProperty("id")] public string Id { get; set; } = "";
-
-    [JsonProperty("auth")] public string? Auth { get; set; }
 }

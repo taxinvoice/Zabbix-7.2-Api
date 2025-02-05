@@ -16,7 +16,7 @@ namespace ZabbixIntegrationTests
         {
             WebScenarioStep step = new WebScenarioStep("TestStep", 0, "abc.com");
             WebScenario scenario = new WebScenario("TestScenario"+Id, TestHost.EntityId, new List<WebScenarioStep>(){step});
-            TestCycle(scenario, "WebScenarios", new(){"HostId"});
+            TestCycle(scenario, "WebScenarios", new List<string>() { "HostId" });
         }
 
         public override void SetUp()

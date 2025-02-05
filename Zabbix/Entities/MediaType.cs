@@ -55,9 +55,6 @@ public class MediaType : BaseEntity
     [JsonProperty("username")]
     public string? Username { get; set; }
 
-    [JsonProperty("exec_params")]
-    public string? ExecParams { get; set; }
-
     [JsonProperty("maxsessions")]
     public int? MaxSessions { get; set; }
 

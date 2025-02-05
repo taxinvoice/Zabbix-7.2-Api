@@ -13,6 +13,10 @@ namespace ZabbixIntegrationTests
         public void TestHostCycle()
         {
             Host host = new Host("TestHost"+Id, TestGroup);
+
+            // create method expects a group ID only
+            host.Groups.First().Name = null;
+            
             TestCycle(host, "Hosts");
         }
 

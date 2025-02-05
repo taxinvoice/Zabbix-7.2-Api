@@ -8,9 +8,7 @@ public class Proxy : BaseEntity
 
     [JsonProperty("proxyid")] public override string? EntityId { get; set; }
 
-    [JsonProperty("host")] public string? Host { get; set; }
-
-    [JsonProperty("status")] public int? Status { get; set; }
+    [JsonProperty("name")] public string? Name { get; set; }
 
     [JsonProperty("description")] public string? Description { get; set; }
 
@@ -32,6 +30,8 @@ public class Proxy : BaseEntity
 
     [JsonProperty("auto_compress")] public int? AutoCompress { get; set; }
 
+    [JsonProperty("operating_mode")] public int OperatingMode { get; set; } = 0;
+
     #endregion
 
     #region Components
@@ -42,12 +42,6 @@ public class Proxy : BaseEntity
     #endregion
 
     #region Constructors
-
-    public Proxy(string host, int status)
-    {
-        Host = host;
-        Status = status;
-    }
 
     public Proxy() { }
 

@@ -21,7 +21,7 @@ namespace ZabbixIntegrationTests
                 Dns = "",
                 Port = "24000",
             };
-            TestCycle(h, "HostInterfaces", new () {"HostId"});
+            TestCycle(h, "HostInterfaces", new List<string> () {"HostId"});
         }
         public override void SetUp()
         {

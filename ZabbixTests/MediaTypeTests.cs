@@ -16,7 +16,6 @@ namespace ZabbixIntegrationTests
                 Type = 1,
                 Name = "Testmediatype" + Id,
                 ExecPath = "ls",
-                ExecParams = "",
                 MaxAttempts = 5,
                 AttemptInterval = "11s"
             };

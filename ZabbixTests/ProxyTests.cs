@@ -13,8 +13,7 @@ namespace ZabbixIntegrationTests
         public void TestProxyCycle()
         {
             Proxy p = new() {
-                Host = "testproxy" + Id,
-                Status = 5
+                Name = "testproxy" + Id
             };
             TestCycle(p, "Proxies");
         }

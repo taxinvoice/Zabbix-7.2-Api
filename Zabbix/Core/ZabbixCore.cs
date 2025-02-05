@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Text;
 using Zabbix.Entities;
 using Zabbix.Services;
@@ -112,6 +113,10 @@ public class ZabbixCore : ICore
             var request = GetRequest(@params, method, token);
             string json = JsonConvert.SerializeObject(request, _serializerSettings);
             var requestData = new StringContent(JsonConvert.SerializeObject(request, _serializerSettings), Encoding.UTF8, "application/json");
+
+            // add bearer token
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            
             var response = _httpClient.PostAsync(_url, requestData).Result;
             response.EnsureSuccessStatusCode();
 
@@ -196,8 +201,7 @@ public class ZabbixCore : ICore
         {
             Method = method,
             Params = @params,
-            Id = Guid.NewGuid().ToString(),
-            Auth = authenticationToken
+            Id = Guid.NewGuid().ToString()
         };
     }
 

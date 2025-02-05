@@ -20,7 +20,7 @@ namespace ZabbixIntegrationTests
                 Delay = "30s",
                 Url = "abc.com"
             };
-            TestCycle(r, "LldRules");
+            TestCycle(r, "LldRules", true);
         }
 
         public override void SetUp()
