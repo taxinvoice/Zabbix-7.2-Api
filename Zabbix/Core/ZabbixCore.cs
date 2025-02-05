@@ -143,8 +143,11 @@ public class ZabbixCore : ICore
     public async Task<T> SendRequestAsync<T>(object? @params, string method, string? token)
     {
         var request = GetRequest(@params, method, token);
-
         var requestData = new StringContent(JsonConvert.SerializeObject(request, _serializerSettings), Encoding.UTF8, "application/json");
+
+        // add bearer token
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
         var response = await _httpClient.PostAsync(_url, requestData).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
 
