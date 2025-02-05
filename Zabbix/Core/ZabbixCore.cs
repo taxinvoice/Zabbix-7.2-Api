@@ -15,7 +15,7 @@ public class ZabbixCore : ICore
     private readonly JsonSerializerSettings _serializerSettings;
     private readonly string _url;
 
-    public ZabbixCore(string url, string username, string password)
+    public ZabbixCore(string url, string username, string password, string? authenticationToken = null)
     {
 
         if (password == null)
@@ -94,7 +94,14 @@ public class ZabbixCore : ICore
         Graphs = new GraphService(this);
         Maps = new MapService(this);
 
-        Authenticate(username, password);
+        if (string.IsNullOrWhiteSpace(authenticationToken))
+        {
+            Authenticate(username, password);
+        }
+        else
+        {
+            _authenticationToken = authenticationToken;
+        }
     }
 
     public T SendRequest<T>(object? @params, string method)
@@ -145,28 +152,17 @@ public class ZabbixCore : ICore
         return HandleResponse<T>(request.Id, responseData);
     }
 
-
     public void Dispose()
     {
         Users.Logout();
         _httpClient.Dispose();
     }
 
-
-
-
     private void Authenticate(string user, string password)
     {
         _loggedInUser = Users.Login(user, password);
         _authenticationToken = _loggedInUser.SessionId;
     }
-
-    private async void AuthenticateAsync(string user, string password)
-    {
-        _loggedInUser = await Users.LoginAsync(user, password);
-        _authenticationToken = _loggedInUser.SessionId;
-    }
-
 
     private T HandleResponse<T>(string requestId, string responseData)
     {

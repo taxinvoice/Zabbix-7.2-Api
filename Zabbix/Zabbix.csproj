@@ -5,13 +5,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>Zabbix 6.0 API Library</Title>
+    <Title>Zabbix 7.2 API Library</Title>
     <Authors>Stefan Hasler</Authors>
     <Company />
-	  <Version>1.2.4</Version>
+	  <Version>0.1.0</Version>
     <PackageId>$(AssemblyName).Api.NET</PackageId>
     <Product />
-    <Description>Library to communicate with the 6.0 Zabbix Api</Description>
+    <Description>Library to communicate with the 7.2 Zabbix Api</Description>
     <Copyright>MIT License</Copyright>
     <PackageProjectUrl></PackageProjectUrl>
     <PackageIcon>zabbix_logo_icon_167937.png</PackageIcon>
