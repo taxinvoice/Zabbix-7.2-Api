@@ -6,8 +6,7 @@ using Zabbix.Services;
 
 namespace Zabbix.Core;
 
-//TODO: massAdd massdelete massupdate
-public class ZabbixCore : ICore
+public class ZabbixCore : IZabbixCore
 {
     private volatile string? _authenticationToken = "";
     private readonly HttpClient _httpClient;
@@ -113,7 +112,7 @@ public class ZabbixCore : ICore
         }
     }
 
-    public T SendRequest<T>(object? @params, string method, string? token)
+    public virtual T SendRequest<T>(object? @params, string method, string? token)
     {
         lock (_httpClient)
         {
@@ -123,7 +122,7 @@ public class ZabbixCore : ICore
 
             // add bearer token
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            
+
             var response = _httpClient.PostAsync(_url, requestData).Result;
             response.EnsureSuccessStatusCode();
 
@@ -140,7 +139,7 @@ public class ZabbixCore : ICore
         return await SendRequestAsync<T>(@params, method, token);
     }
 
-    public async Task<T> SendRequestAsync<T>(object? @params, string method, string? token)
+    public virtual async Task<T> SendRequestAsync<T>(object? @params, string method, string? token)
     {
         var request = GetRequest(@params, method, token);
         var requestData = new StringContent(JsonConvert.SerializeObject(request, _serializerSettings), Encoding.UTF8, "application/json");
@@ -216,57 +215,57 @@ public class ZabbixCore : ICore
     public ActionService Actions { get; }
     public AlertService Alerts { get; }
     public AuditLogService AuditLogs { get; }
-    public AuthenticationService Authentication{ get; }
-    public AutoRegistrationService AutoRegistration{ get; }
-    public ConfigurationService Configuration{ get; }
-    public CorrelationService Correlations{ get; }
-    public DiscoveredHostService DiscoveredHosts{ get; }
-    public DiscoveryCheckService DiscoveryChecks{ get; }
-    public DiscoveredServiceService DiscoveredServices{ get; }
-    public DiscoveryRuleService DiscoveryRules{ get; }
-    public EventService Events{ get; }
-    public GraphItemService GraphItems{ get; }
-    public GraphPrototypeService GraphPrototypes{ get; }
-    public HighAvailabilityNodeService HighAvailabilityNodes{ get; }
-    public HistoryService History{ get; }
-    public HostGroupService HostGroups{ get; }
-    public HostInterfaceService HostInterfaces{ get; }
-    public HostPrototypeService HostPrototypes{ get; }
-    public HostService Hosts{ get; }
-    public HousekeepingService Housekeeping{ get; }
-    public IconMapService IconMaps{ get; }
-    public ImageService Images{ get; }
-    public ItemPrototypeService ItemPrototypes{ get; }
-    public ItemService Items{ get; }
-    public LldRuleService LldRules{ get; }
-    public MaintenanceService Maintenance{ get; }
-    public MediaTypeService MediaTypes{ get; }
-    public ProblemService Problems{ get; }
-    public ProxyService Proxies{ get; }
-    public RegexObjectService Regex{ get; }
-    public ReportService Reports{ get; }
-    public RoleService Roles{ get; }
-    public ScriptService Scripts{ get; }
-    public ServiceService Services{ get; }
-    public SettingsService Settings{ get; }
-    public SlaService SLAs{ get; }
-    public DashboardService Dashboards{ get; }
-    public TaskService Tasks{ get; }
+    public AuthenticationService Authentication { get; }
+    public AutoRegistrationService AutoRegistration { get; }
+    public ConfigurationService Configuration { get; }
+    public CorrelationService Correlations { get; }
+    public DiscoveredHostService DiscoveredHosts { get; }
+    public DiscoveryCheckService DiscoveryChecks { get; }
+    public DiscoveredServiceService DiscoveredServices { get; }
+    public DiscoveryRuleService DiscoveryRules { get; }
+    public EventService Events { get; }
+    public GraphItemService GraphItems { get; }
+    public GraphPrototypeService GraphPrototypes { get; }
+    public HighAvailabilityNodeService HighAvailabilityNodes { get; }
+    public HistoryService History { get; }
+    public HostGroupService HostGroups { get; }
+    public HostInterfaceService HostInterfaces { get; }
+    public HostPrototypeService HostPrototypes { get; }
+    public HostService Hosts { get; }
+    public HousekeepingService Housekeeping { get; }
+    public IconMapService IconMaps { get; }
+    public ImageService Images { get; }
+    public ItemPrototypeService ItemPrototypes { get; }
+    public ItemService Items { get; }
+    public LldRuleService LldRules { get; }
+    public MaintenanceService Maintenance { get; }
+    public MediaTypeService MediaTypes { get; }
+    public ProblemService Problems { get; }
+    public ProxyService Proxies { get; }
+    public RegexObjectService Regex { get; }
+    public ReportService Reports { get; }
+    public RoleService Roles { get; }
+    public ScriptService Scripts { get; }
+    public ServiceService Services { get; }
+    public SettingsService Settings { get; }
+    public SlaService SLAs { get; }
+    public DashboardService Dashboards { get; }
+    public TaskService Tasks { get; }
     /// <summary>
     /// Only Available on Zabbix Version >= 6.4
     /// </summary>
-    public ConnectorService Connectors{ get; }
-    public TemplateDashboardService TemplateDashboards{ get; }
-    public TemplateService Templates{ get; }
-    public TokenService Tokens{ get; }
-    public TrendService Trends{ get; }
-    public TriggerPrototypeService TriggerPrototypes{ get; }
-    public TriggerService Triggers{ get; }
-    public UserGroupService UserGroups{ get; }
-    public UserMacroService UserMacros{ get; }
-    public UserService Users{ get; }
-    public ValueMapService ValueMaps{ get; }
-    public WebScenarioService WebScenarios{ get; }
+    public ConnectorService Connectors { get; }
+    public TemplateDashboardService TemplateDashboards { get; }
+    public TemplateService Templates { get; }
+    public TokenService Tokens { get; }
+    public TrendService Trends { get; }
+    public TriggerPrototypeService TriggerPrototypes { get; }
+    public TriggerService Triggers { get; }
+    public UserGroupService UserGroups { get; }
+    public UserMacroService UserMacros { get; }
+    public UserService Users { get; }
+    public ValueMapService ValueMaps { get; }
+    public WebScenarioService WebScenarios { get; }
     public ApiInfoService ApiInfo { get; }
     public GraphService Graphs { get; }
     public MapService Maps { get; }
