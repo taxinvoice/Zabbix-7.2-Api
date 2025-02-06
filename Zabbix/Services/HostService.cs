@@ -138,7 +138,7 @@ public class HostFilterOptions : FilterOptions
     public IList<int>? Severities { get; set; }
 
     [JsonProperty("tags")]
-    public object? Tags { get; set; }
+    public IList<TagFilter>? Tags { get; set; }
 
     [JsonProperty("inheritedTags")]
     public bool? InheritedTags { get; set; }

@@ -25,6 +25,8 @@ public class Problem : BaseEntity
 
     [JsonProperty("r_ns")] public string? RNs { get; set; }
 
+    [JsonProperty("cause_eventid")] public string? CauseEventId { get; set; }
+
     [JsonProperty("correlationid")] public string? Correlationid { get; set; }
 
     [JsonProperty("userid")] public string? Userid { get; set; }
@@ -48,6 +50,8 @@ public class Problem : BaseEntity
     [JsonProperty("acknowledges")] public List<Acknowledge>? Acknowledges { get; set; }
 
     [JsonProperty("suppression_data")] public List<SuppressionData>? SuppressionData { get; set; }
+
+    [JsonProperty("urls")] public IList<MediaTypeUrl>? Urls { get; set; }
 
     #endregion
 }
