@@ -43,9 +43,9 @@ public class Alert : BaseEntity
 
     #region Components
 
-    private List<Host>? Hosts { get; set; }
-    private List<MediaType>? MediaTypes { get; set; }
-    private List<User>? Users { get; set; }
+    public List<Host>? Hosts { get; set; }
+    public List<MediaType>? MediaTypes { get; set; }
+    public List<User>? Users { get; set; }
 
     #endregion
 }

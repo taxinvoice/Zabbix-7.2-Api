@@ -50,11 +50,11 @@ public class Event : BaseEntity
 
     [JsonProperty("tags")] public List<Tag>? Tags { get; set; }
 
-    [JsonProperty("hosts")] private List<Host>? Hosts { get; set; }
+    [JsonProperty("hosts")] public List<Host>? Hosts { get; set; }
 
-    [JsonProperty("relatedObject")] private List<object>? RelatedObjects { get; set; }
+    [JsonProperty("relatedObject")] public List<object>? RelatedObjects { get; set; }
 
-    [JsonProperty("alerts")] private List<Alert>? Alerts { get; set; }
+    [JsonProperty("alerts")] public List<Alert>? Alerts { get; set; }
 
     #endregion
 }
