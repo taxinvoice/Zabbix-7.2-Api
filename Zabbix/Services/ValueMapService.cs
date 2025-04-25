@@ -4,32 +4,32 @@ using Zabbix.Entities;
 using Zabbix.Filter;
 using Zabbix.Services.CrudServices;
 
-namespace Zabbix.Services
-{
-    public class ValueMapService : CrudService<ValueMap, ValueFilterOptions, ValueMapService.ValueMapResult>
-    {
+namespace Zabbix.Services;
 
-        public ValueMapService(ICore core) : base(core, "valuemap")
-        {
-        }
-        public class ValueMapResult : BaseResult
-        {
-            [JsonProperty("valuemapids")]
-            public override IList<string>? Ids { get; set; }
-        }
+public class ValueMapService : CrudService<ValueMap, ValueFilterOptions, ValueMapService.ValueMapResult>
+{
+    public ValueMapService(ICore core)
+        : base(core, "valuemap")
+    {
     }
 
-    public class ValueFilterOptions : FilterOptions
+    public class ValueMapResult : BaseResult
     {
         [JsonProperty("valuemapids")]
-        public object? ValueMapIds { get; set; }
-
-        [JsonProperty("selectMappings")]
-        public ZabbixQuery? SelectMappings { get; set; }
+        public override IList<string>? Ids { get; set; }
     }
+}
 
-    public enum ValueMapInclude
-    {
-        selectMappings
-    }
+public class ValueFilterOptions : FilterOptions
+{
+    [JsonProperty("valuemapids")]
+    public object? ValueMapIds { get; set; }
+
+    [JsonProperty("selectMappings")]
+    public ZabbixQuery? SelectMappings { get; set; }
+}
+
+public enum ValueMapInclude
+{
+    selectMappings
 }

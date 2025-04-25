@@ -4,13 +4,11 @@ using Zabbix.Filter;
 
 namespace Zabbix.Services.CrudServices;
 
-//TODO: Maybe add createOrupdate methods
-
-
+// TODO: Maybe add createOrupdate methods
 
 public abstract class CrudService<TEntity, TEntityFilter, TEntityResult>
-    where TEntityResult : BaseResult 
-    where TEntity : BaseEntity 
+    where TEntityResult : BaseResult
+    where TEntity : BaseEntity
     where TEntityFilter : FilterOptions
 {
     private readonly CreateService<TEntity, TEntityResult> _createService;
@@ -22,14 +20,13 @@ public abstract class CrudService<TEntity, TEntityFilter, TEntityResult>
     protected string ClassName;
     protected CrudService(ICore core, string className)
     {
-        _createService = new(core, className);
-        _getService = new(core, className);
-        _updateService = new(core, className);
-        _deleteService = new(core, className);
+        _createService = new (core, className);
+        _getService = new (core, className);
+        _updateService = new (core, className);
+        _deleteService = new (core, className);
         Core = core;
         ClassName = className;
     }
-
 
     #region Get
 
@@ -47,6 +44,7 @@ public abstract class CrudService<TEntity, TEntityFilter, TEntityResult>
     {
         return _getService.CountOutput(filter);
     }
+
     public virtual async Task<int> CountOutputAsync(TEntityFilter? filter = null)
     {
         return await _getService.CountOutputAsync(filter);
@@ -56,6 +54,7 @@ public abstract class CrudService<TEntity, TEntityFilter, TEntityResult>
     {
         return _getService.PreserveKeys(filter);
     }
+
     public virtual async Task<Dictionary<string, TEntity>> PreserveKeysAsync(TEntityFilter? filter = null)
     {
         return await _getService.PreserveKeysAsync(filter);
@@ -77,13 +76,11 @@ public abstract class CrudService<TEntity, TEntityFilter, TEntityResult>
     public virtual async Task<IEnumerable<string>> CreateAsync(IEnumerable<TEntity> entities)
     {
         return await _createService.CreateAsync(entities);
-
     }
 
     public virtual async Task<string> CreateAsync(TEntity entity)
     {
         return await _createService.CreateAsync(entity);
-
     }
 
     #endregion
@@ -137,26 +134,21 @@ public abstract class CrudService<TEntity, TEntityFilter, TEntityResult>
     public virtual async Task<string> DeleteAsync(TEntity entity)
     {
         return await _deleteService.DeleteAsync(entity);
-
     }
 
     public virtual async Task<string> DeleteAsync(string id)
     {
         return await _deleteService.DeleteAsync(id);
-
     }
 
     public virtual async Task<IEnumerable<string>> DeleteAsync(IEnumerable<TEntity> entities)
     {
         return await _deleteService.DeleteAsync(entities);
-
     }
 
     public virtual async Task<IEnumerable<string>> DeleteAsync(IEnumerable<string> ids)
     {
-
         return await _deleteService.DeleteAsync(ids);
-
     }
 
     #endregion

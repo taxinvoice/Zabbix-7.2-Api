@@ -8,10 +8,10 @@ namespace Zabbix.Services;
 
 public class AlertService : GetService<Alert, AlertFilterOptions>
 {
-    public AlertService(ICore core) : base(core, "alert")
+    public AlertService(ICore core)
+        : base(core, "alert")
     {
     }
-
 }
 
 public class AlertFilterOptions : FilterOptions

@@ -4,9 +4,11 @@ namespace Zabbix.Entities;
 
 public class Tag : BaseEntity
 {
-    [JsonProperty("tag")] public string? TagName { get; set; }
+    [JsonProperty("tag")]
+    public string? TagName { get; set; }
 
-    [JsonProperty("value")] public string? Value { get; set; }
+    [JsonProperty("value")]
+    public string? Value { get; set; }
 
     public Tag(string tagName, string value)
     {
@@ -14,5 +16,7 @@ public class Tag : BaseEntity
         Value = value;
     }
 
-    public Tag() { }
+    public Tag()
+    {
+    }
 }

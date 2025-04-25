@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Zabbix\Zabbix.csproj" />
+    <ProjectReference Include="..\Zabbix\Zabbix72.csproj" />
   </ItemGroup>
 
 

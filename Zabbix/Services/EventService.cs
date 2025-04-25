@@ -9,44 +9,55 @@ namespace Zabbix.Services;
 
 public class EventService : GetService<Event, EventFilterOptions>
 {
-    public EventService(ICore core) : base(core, "event")
+    public EventService(ICore core)
+        : base(core, "event")
     {
     }
 
-
-
     public IEnumerable<string> Acknowledge(IList<string> eventIds, int action, string? message = null, string? severity = null)
     {
-        Dictionary<string, object?> @params = new()
+        Dictionary<string, object?> @params = new ()
         {
             { "eventids", eventIds },
             { "action", action }
         };
 
         if (message != null)
+        {
             @params.Add("message", message);
+        }
+
         if (severity != null)
+        {
             @params.Add("severity", severity);
+        }
 
         var ret = Core.SendRequest<EventResult>(@params, ClassName + ".acknowledge").Ids;
         return Checker.ReturnEmptyListOrActual(ret);
     }
+
     public async Task<IEnumerable<string>> AcknowledgeAsync(IList<string> eventIds, int action, string? message = null, string? severity = null)
     {
-        Dictionary<string, object?> @params = new()
+        Dictionary<string, object?> @params = new ()
         {
             { "eventids", eventIds },
             { "action", action }
         };
 
         if (message != null)
+        {
             @params.Add("message", message);
+        }
+
         if (severity != null)
+        {
             @params.Add("severity", severity);
+        }
 
         var ret = (await Core.SendRequestAsync<EventResult>(@params, ClassName + ".acknowledge")).Ids;
         return Checker.ReturnEmptyListOrActual(ret);
     }
+
     public class EventResult : BaseResult
     {
         public override IList<string>? Ids { get; set; }

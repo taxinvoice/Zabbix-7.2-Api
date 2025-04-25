@@ -4,16 +4,17 @@ namespace Zabbix.Core;
 
 internal class Request
 {
-    public Request()
-    {
-        JSonRcp = "2.0";
-    }
+    public Request() => JSonRcp = "2.0";
 
-    [JsonProperty("jsonrpc")] public string JSonRcp { get; set; }
+    [JsonProperty("jsonrpc")]
+    public string JSonRcp { get; set; }
 
-    [JsonProperty("method")] public string Method { get; set; } = "";
+    [JsonProperty("method")]
+    public string Method { get; set; } = "";
 
-    [JsonProperty("params")] public object? Params { get; set; }
+    [JsonProperty("params")]
+    public object? Params { get; set; }
 
-    [JsonProperty("id")] public string Id { get; set; } = "";
+    [JsonProperty("id")]
+    public string Id { get; set; } = "";
 }

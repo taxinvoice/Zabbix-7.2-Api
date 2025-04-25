@@ -24,7 +24,9 @@ public class ValueMappings
         NewValue = newValue;
     }
 
-    public ValueMappings() { }
+    public ValueMappings()
+    {
+    }
     #endregion
 
 }
@@ -62,7 +64,10 @@ public class ValueMap : BaseEntity
         Name = name;
         Mappings = mappings;
     }
-    public ValueMap() { }
+
+    public ValueMap()
+    {
+    }
 
     #endregion
 }

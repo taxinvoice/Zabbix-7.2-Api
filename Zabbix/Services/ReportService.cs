@@ -8,13 +8,15 @@ namespace Zabbix.Services;
 
 public class ReportService : CrudService<Report, ReportFilterOptions, ReportService.ReportResult>
 {
-    public ReportService(ICore core) : base(core, "report")
+    public ReportService(ICore core)
+        : base(core, "report")
     {
     }
 
     public class ReportResult : BaseResult
     {
-        [JsonProperty("reportids")] public override IList<string>? Ids { get; set; }
+        [JsonProperty("reportids")]
+        public override IList<string>? Ids { get; set; }
     }
 }
 

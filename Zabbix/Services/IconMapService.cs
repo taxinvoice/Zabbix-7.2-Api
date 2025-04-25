@@ -4,33 +4,30 @@ using Zabbix.Entities;
 using Zabbix.Filter;
 using Zabbix.Services.CrudServices;
 
-namespace Zabbix.Services
+namespace Zabbix.Services;
+
+public class IconMapService : CrudService<IconMap, IconMapFilterOptions, IconMapService.IconMapResult>
 {
-    public class IconMapService : CrudService<IconMap, IconMapFilterOptions, IconMapService.IconMapResult>
+    public IconMapService(ICore core)
+        : base(core, "iconmap")
     {
-        public IconMapService(ICore core) : base(core, "iconmap")
-        {
-        }
-
-
-        public class IconMapResult : BaseResult
-        {
-            [JsonProperty("iconmapids")]
-            public override IList<string>? Ids { get; set; }
-        }
-
     }
 
-    public class IconMapFilterOptions : FilterOptions
+    public class IconMapResult : BaseResult
     {
         [JsonProperty("iconmapids")]
-        public object? IconMapIds { get; set; }
-
-        [JsonProperty("sysmapids")]
-        public object? SysMapIds { get; set; }
-
-        [JsonProperty("selectMappings")]
-        public ZabbixQuery? SelectMappings { get; set; }
+        public override IList<string>? Ids { get; set; }
     }
+}
 
+public class IconMapFilterOptions : FilterOptions
+{
+    [JsonProperty("iconmapids")]
+    public object? IconMapIds { get; set; }
+
+    [JsonProperty("sysmapids")]
+    public object? SysMapIds { get; set; }
+
+    [JsonProperty("selectMappings")]
+    public ZabbixQuery? SelectMappings { get; set; }
 }

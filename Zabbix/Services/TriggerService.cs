@@ -9,15 +9,14 @@ namespace Zabbix.Services;
 
 public class TriggerService : CrudService<Trigger, TriggerFilterOptions, TriggerService.TriggerResult>
 {
-    public TriggerService(ICore core) : base(core, "trigger")
+    public TriggerService(ICore core)
+        : base(core, "trigger")
     {
     }
 
-    
-
     public IEnumerable<string> AddDependency(int triggerId, int dependsOnTriggerId)
     {
-        Dictionary<string, object?> @params = new()
+        Dictionary<string, object?> @params = new ()
         {
             { "triggerid", triggerId },
             { "dependsOnTriggerid", dependsOnTriggerId }
@@ -26,9 +25,10 @@ public class TriggerService : CrudService<Trigger, TriggerFilterOptions, Trigger
         var ret = Core.SendRequest<TriggerResult>(@params, ClassName + ".adddependencies").Ids;
         return Checker.ReturnEmptyListOrActual(ret);
     }
+
     public async Task<IEnumerable<string>> AddDependencyAsync(int triggerId, int dependsOnTriggerId)
     {
-        Dictionary<string, object?> @params = new()
+        Dictionary<string, object?> @params = new ()
         {
             { "triggerid", triggerId },
             { "dependsOnTriggerid", dependsOnTriggerId }
@@ -37,9 +37,10 @@ public class TriggerService : CrudService<Trigger, TriggerFilterOptions, Trigger
         var ret = (await Core.SendRequestAsync<TriggerResult>(@params, ClassName + ".adddependencies")).Ids;
         return Checker.ReturnEmptyListOrActual(ret);
     }
+
     public IEnumerable<string> DeleteDependency(int triggerId)
     {
-        Dictionary<string, object?> @params = new()
+        Dictionary<string, object?> @params = new ()
         {
             { "triggerid", triggerId }
         };
@@ -47,9 +48,10 @@ public class TriggerService : CrudService<Trigger, TriggerFilterOptions, Trigger
         var ret = Core.SendRequest<TriggerResult>(@params, ClassName + ".deleteDependencies").Ids;
         return Checker.ReturnEmptyListOrActual(ret);
     }
+
     public async Task<IEnumerable<string>> DeleteDependencyAsync(int triggerId)
     {
-        Dictionary<string, object?> @params = new()
+        Dictionary<string, object?> @params = new ()
         {
             { "triggerid", triggerId }
         };
@@ -60,7 +62,8 @@ public class TriggerService : CrudService<Trigger, TriggerFilterOptions, Trigger
 
     public class TriggerResult : BaseResult
     {
-        [JsonProperty("triggerids")] public override IList<string>? Ids { get; set; }
+        [JsonProperty("triggerids")]
+        public override IList<string>? Ids { get; set; }
     }
 }
 

@@ -8,15 +8,15 @@ namespace Zabbix.Services;
 
 public class ItemService : CrudService<Item, ItemFilterOptions, ItemService.ItemResult>
 {
-    public ItemService(ICore core) : base(core, "item")
+    public ItemService(ICore core)
+        : base(core, "item")
     {
     }
 
-
-
     public class ItemResult : BaseResult
     {
-        [JsonProperty("itemids")] public override IList<string>? Ids { get; set; }
+        [JsonProperty("itemids")]
+        public override IList<string>? Ids { get; set; }
     }
 }
 

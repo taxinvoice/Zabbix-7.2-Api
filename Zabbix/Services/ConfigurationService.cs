@@ -1,27 +1,26 @@
 ﻿using Zabbix.Core;
 using Zabbix.Entities;
 
-namespace Zabbix.Services
+namespace Zabbix.Services;
+
+public class ConfigurationService
 {
-    public class ConfigurationService
+    private ICore _core;
+    public ConfigurationService(ICore core) => _core = core;
+
+    public string Export(ExportConfiguration configuration)
     {
-        private ICore _core;
-        public ConfigurationService(ICore core)
-        {
-            _core = core;
-        }
-        public string Export(ExportConfiguration configuration)
-        {
-            return _core.SendRequest<string>(configuration, "configuration.export");
-        }
-        public bool Import(ImportConfiguration configuration)
-        {
-            return _core.SendRequest<bool>(configuration, "configuration.import");
-        }
-        //TODO map this to actual Entity
-        public object ImportCompare(ImportConfiguration configuration)
-        {
-            return _core.SendRequest<object>(configuration, "configuration.import");
-        }
+        return _core.SendRequest<string>(configuration, "configuration.export");
+    }
+
+    public bool Import(ImportConfiguration configuration)
+    {
+        return _core.SendRequest<bool>(configuration, "configuration.import");
+    }
+
+    // TODO map this to actual Entity
+    public object ImportCompare(ImportConfiguration configuration)
+    {
+        return _core.SendRequest<object>(configuration, "configuration.import");
     }
 }

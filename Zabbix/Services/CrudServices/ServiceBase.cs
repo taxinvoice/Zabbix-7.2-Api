@@ -14,7 +14,8 @@ public abstract class ServiceBase
     {
         Core = core;
         ClassName = className;
-        SerializerSettings = new JsonSerializerSettings {
+        SerializerSettings = new JsonSerializerSettings
+        {
             NullValueHandling = NullValueHandling.Ignore,
             Converters = new List<JsonConverter>() { new ZabbixQueryConverter() }
         };
@@ -22,12 +23,9 @@ public abstract class ServiceBase
 
     protected virtual Dictionary<string, object> BuildParams(FilterOptions? filter = null)
     {
-        var json = JsonConvert.SerializeObject(filter, SerializerSettings);
+        string json = JsonConvert.SerializeObject(filter, SerializerSettings);
         var dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
 
         return dictionary ?? new Dictionary<string, object>();
     }
-
-
-
 }

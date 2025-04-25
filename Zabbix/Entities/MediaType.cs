@@ -2,7 +2,6 @@
 
 namespace Zabbix.Entities;
 
-
 public class MediaType : BaseEntity
 {
     #region Properties
@@ -104,11 +103,13 @@ public class MediaType : BaseEntity
         Name = name;
         Type = type;
     }
-    public MediaType(){}
-    
+
+    public MediaType()
+    {
+    }
+
     #endregion
 }
-
 
 public class MessageTemplate
 {
@@ -136,7 +137,9 @@ public class MessageTemplate
         Recovery = recovery;
     }
 
-    public MessageTemplate() { }
+    public MessageTemplate()
+    {
+    }
 
     #endregion
 }

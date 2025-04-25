@@ -9,7 +9,8 @@ namespace Zabbix.Services;
 
 public class UserService : CrudService<User, UserFilterOptions, UserService.UserResult>
 {
-    public UserService(ICore core) : base(core, "user")
+    public UserService(ICore core)
+        : base(core, "user")
     {
     }
 
@@ -20,6 +21,7 @@ public class UserService : CrudService<User, UserFilterOptions, UserService.User
         var ids = baseEntities.Select(user => user.EntityId!);
         return Checker.ReturnEmptyListOrActual(Core.SendRequest<UserResult>(ids, ClassName + ".login", null).Ids);
     }
+
     public IEnumerable<string> Unblock(IEnumerable<string> userIds)
     {
         return Checker.ReturnEmptyListOrActual(Core.SendRequest<UserResult>(userIds, ClassName + ".login", null).Ids);
@@ -33,6 +35,7 @@ public class UserService : CrudService<User, UserFilterOptions, UserService.User
         var result = await Core.SendRequestAsync<UserResult>(ids, ClassName + ".unblock", null);
         return Checker.ReturnEmptyListOrActual(result.Ids);
     }
+
     public async Task<IEnumerable<string>> UnblockAsync(IEnumerable<string> userIds)
     {
         return Checker.ReturnEmptyListOrActual((await Core.SendRequestAsync<UserResult>(userIds, ClassName + ".unblock", null)).Ids);
@@ -42,11 +45,20 @@ public class UserService : CrudService<User, UserFilterOptions, UserService.User
     {
         var @params = new Dictionary<string, object?>();
         if (extend != null)
+        {
             @params.Add("extend", extend);
+        }
+
         if (sessionId != null)
+        {
             @params.Add("sessionid", sessionId);
+        }
+
         if (token != null)
+        {
             @params.Add("token", token);
+        }
+
         if (token == null && sessionId == null)
         {
             throw new Exception("Either sessionid or tokenid need to be not null for 'CheckAuthentication'");
@@ -54,15 +66,25 @@ public class UserService : CrudService<User, UserFilterOptions, UserService.User
 
         return Core.SendRequest<User>(@params, "user.checkAuthentication");
     }
+
     public async Task<User> CheckAuthenticationAsync(bool? extend, string? sessionId, string? token)
     {
         var @params = new Dictionary<string, object?>();
         if (extend != null)
+        {
             @params.Add("extend", extend);
+        }
+
         if (sessionId != null)
+        {
             @params.Add("sessionid", sessionId);
+        }
+
         if (token != null)
+        {
             @params.Add("token", token);
+        }
+
         if (token == null && sessionId == null)
         {
             throw new Exception("Either sessionid or tokenid need to be not null for 'CheckAuthentication'");
@@ -74,34 +96,41 @@ public class UserService : CrudService<User, UserFilterOptions, UserService.User
     public User Login(string username, string password, Dictionary<string, string>? @params = null)
     {
         if (@params == null)
+        {
             @params = new Dictionary<string, string>
                 { { "username", username }, { "password", password }, { "userData", "true" } };
+        }
+
         return Core.SendRequest<User>(@params, ClassName + ".login", null);
     }
 
     public bool Logout()
     {
-        var res =  Core.SendRequest<bool>(new Dictionary<string, string>(), ClassName + ".logout", null);
+        bool res = Core.SendRequest<bool>(new Dictionary<string, string>(), ClassName + ".logout", null);
         return res;
     }
 
     public async Task<User> LoginAsync(string username, string password, Dictionary<string, string>? @params = null)
     {
         if (@params == null)
+        {
             @params = new Dictionary<string, string>
                 { { "username", username }, { "password", password }, { "userData", "true" } };
+        }
+
         return await Core.SendRequestAsync<User>(@params, ClassName + ".login", null);
     }
 
     public async Task<bool> LogoutAsync()
     {
-        var res = await Core.SendRequestAsync<bool>(new Dictionary<string, string>(), ClassName + ".logout", null);
+        bool res = await Core.SendRequestAsync<bool>(new Dictionary<string, string>(), ClassName + ".logout", null);
         return res;
     }
 
     public class UserResult : BaseResult
     {
-        [JsonProperty("userids")] public override IList<string>? Ids { get; set; }
+        [JsonProperty("userids")]
+        public override IList<string>? Ids { get; set; }
     }
 }
 

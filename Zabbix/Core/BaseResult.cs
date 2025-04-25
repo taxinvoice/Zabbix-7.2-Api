@@ -6,6 +6,5 @@ public class BaseResult
 
     public BaseResult()
     {
-
     }
 }

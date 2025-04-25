@@ -4,49 +4,46 @@ using Zabbix.Entities;
 using Zabbix.Filter;
 using Zabbix.Services.CrudServices;
 
-namespace Zabbix.Services
+namespace Zabbix.Services;
+
+public class TrendService
 {
-    public class TrendService
+    private ICore _core;
+    public IntegerTrendService IntegerTrends { get; }
+    public FloatTrendService FloatTrends { get; }
+    public TrendService(ICore core)
     {
-        private ICore _core;
-        public IntegerTrendService IntegerTrends { get; }
-        public FloatTrendService FloatTrends { get; }
-        public TrendService(ICore core)
-        {
-            _core = core;
+        _core = core;
 
-            IntegerTrends = new IntegerTrendService(_core);
-            FloatTrends = new FloatTrendService(_core);
-        }
-
-
+        IntegerTrends = new IntegerTrendService(_core);
+        FloatTrends = new FloatTrendService(_core);
     }
-    public class FloatTrendService : GetService<FloatTrend, TrendFilterOptions>
+}
+
+public class FloatTrendService : GetService<FloatTrend, TrendFilterOptions>
+{
+    public FloatTrendService(ICore core)
+        : base(core, "trend")
     {
-        public FloatTrendService(ICore core) : base(core, "trend")
-        {
-        }
     }
+}
 
-   
-
-    public class IntegerTrendService : GetService<IntegerTrend, TrendFilterOptions>
+public class IntegerTrendService : GetService<IntegerTrend, TrendFilterOptions>
+{
+    public IntegerTrendService(ICore core)
+        : base(core, "trend")
     {
-        public IntegerTrendService(ICore core) : base(core, "trend")
-        {
-        }
     }
+}
 
-    public class TrendFilterOptions : FilterOptions
-    {
-        [JsonProperty("itemids")]
-        public object? ItemIds { get; set; }
+public class TrendFilterOptions : FilterOptions
+{
+    [JsonProperty("itemids")]
+    public object? ItemIds { get; set; }
 
-        [JsonProperty("time_from")]
-        public string? TimeFrom { get; set; }
+    [JsonProperty("time_from")]
+    public string? TimeFrom { get; set; }
 
-        [JsonProperty("time_till")]
-        public string? TimeTill { get; set; }
-    }
-
+    [JsonProperty("time_till")]
+    public string? TimeTill { get; set; }
 }

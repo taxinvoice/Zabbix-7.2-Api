@@ -4,21 +4,18 @@ using Zabbix.Entities;
 using Zabbix.Filter;
 using Zabbix.Services.CrudServices;
 
-namespace Zabbix.Services
+namespace Zabbix.Services;
+
+public class HighAvailabilityNodeService : GetService<HighAvailabilityNode, HighAvFilterOptions>
 {
-    public class HighAvailabilityNodeService : GetService<HighAvailabilityNode, HighAvFilterOptions>
+    public HighAvailabilityNodeService(ICore core)
+        : base(core, "hanode")
     {
-        public HighAvailabilityNodeService(ICore core) : base(core, "hanode")
-        {
-        }
-
-        
     }
+}
 
-    public class HighAvFilterOptions : FilterOptions
-    {
-        [JsonProperty("ha_nodeids")]
-        public object? HaNodeIds { get; set; }
-    }
-
+public class HighAvFilterOptions : FilterOptions
+{
+    [JsonProperty("ha_nodeids")]
+    public object? HaNodeIds { get; set; }
 }

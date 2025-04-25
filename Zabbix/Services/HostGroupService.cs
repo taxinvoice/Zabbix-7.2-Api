@@ -8,15 +8,17 @@ namespace Zabbix.Services;
 
 public class HostGroupService : MassCrudService<HostGroup, HostGroupFilterOptions, HostGroupService.HostGroupResult>
 {
-    public HostGroupService(ICore core) : base(core, "hostgroup")
+    public HostGroupService(ICore core)
+        : base(core, "hostgroup")
     {
     }
-
 
     public class HostGroupResult : BaseResult
     {
-        [JsonProperty("groupids")] public override IList<string>? Ids { get; set; }
+        [JsonProperty("groupids")]
+        public override IList<string>? Ids { get; set; }
     }
+
     /*
     public override Dictionary<string, object> BuildMassParams(IEnumerable<HostGroup> entities, HostGroup properties, Dictionary<string, object>? @params = null)
     {
@@ -41,7 +43,6 @@ public class HostGroupService : MassCrudService<HostGroup, HostGroupFilterOption
         throw new NotImplementedException();
     }
     */
-
 }
 
 public class HostGroupFilterOptions : FilterOptions
@@ -117,5 +118,6 @@ public class HostGroupFilterOptions : FilterOptions
     #endregion
 
 }
-//TODO:
+
+// TODO:
 

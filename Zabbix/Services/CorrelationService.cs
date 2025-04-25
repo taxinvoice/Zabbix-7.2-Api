@@ -4,34 +4,30 @@ using Zabbix.Entities;
 using Zabbix.Filter;
 using Zabbix.Services.CrudServices;
 
-namespace Zabbix.Services
+namespace Zabbix.Services;
+
+public class CorrelationService : CrudService<Correlation, CorrelationFilterOptions, CorrelationService.CorrelationResult>
 {
-    public class CorrelationService : CrudService<Correlation, CorrelationFilterOptions, CorrelationService.CorrelationResult>
+    public CorrelationService(ICore core)
+        : base(core, "correlation")
     {
-        
-
-        public CorrelationService(ICore core ) : base(core, "correlation")
-        {
-
-        }
-
-        public class CorrelationResult : BaseResult
-        {
-            [JsonProperty("correlationids")]
-            public override IList<string>? Ids { get; set; }
-        }
     }
 
-    public class CorrelationFilterOptions : FilterOptions
+    public class CorrelationResult : BaseResult
     {
         [JsonProperty("correlationids")]
-        public object? CorrelationIds { get; set; }
-
-        [JsonProperty("selectFilter")]
-        public ZabbixQuery? SelectFilter { get; set; }
-
-        [JsonProperty("selectOperations")]
-        public ZabbixQuery? SelectOperations { get; set; }
+        public override IList<string>? Ids { get; set; }
     }
+}
 
+public class CorrelationFilterOptions : FilterOptions
+{
+    [JsonProperty("correlationids")]
+    public object? CorrelationIds { get; set; }
+
+    [JsonProperty("selectFilter")]
+    public ZabbixQuery? SelectFilter { get; set; }
+
+    [JsonProperty("selectOperations")]
+    public ZabbixQuery? SelectOperations { get; set; }
 }

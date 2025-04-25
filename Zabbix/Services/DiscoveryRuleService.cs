@@ -8,15 +8,15 @@ namespace Zabbix.Services;
 
 public class DiscoveryRuleService : CrudService<DiscoveryRule, DiscoveryRuleFilterOptions, DiscoveryRuleService.DiscoveryRuleResult>
 {
-    public DiscoveryRuleService(ICore core) : base(core, "drule")
+    public DiscoveryRuleService(ICore core)
+        : base(core, "drule")
     {
     }
 
-    
-
     public class DiscoveryRuleResult : BaseResult
     {
-        [JsonProperty("druleids")] public override IList<string>? Ids { get; set; }
+        [JsonProperty("druleids")]
+        public override IList<string>? Ids { get; set; }
     }
 }
 

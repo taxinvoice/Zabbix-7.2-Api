@@ -2,7 +2,6 @@
 
 namespace Zabbix.Entities;
 
-
 public class HostDetails
 {
     #region Properties
@@ -41,14 +40,10 @@ public class HostDetails
 
     #region Constructors
 
-    public HostDetails(int version)
-    {
-        Version = version;
-    }
+    public HostDetails(int version) => Version = version;
 
     public HostDetails()
     {
-
     }
 
     #endregion
@@ -58,37 +53,56 @@ public class HostInterface : BaseEntity
 {
     #region Properties
 
-    [JsonProperty("interfaceid")] public override string? EntityId { get; set; }
+    [JsonProperty("interfaceid")]
+    public override string? EntityId { get; set; }
 
-    [JsonProperty("hostid")] public string? HostId { get; set; }
+    [JsonProperty("hostid")]
+    public string? HostId { get; set; }
 
-    [JsonProperty("main")] public int? Main { get; set; }
+    [JsonProperty("main")]
+    public int? Main { get; set; }
 
-    [JsonProperty("type")] public int? Type { get; set; }
+    [JsonProperty("type")]
+    public int? Type { get; set; }
 
-    [JsonProperty("useip")] public int? Useip { get; set; }
+    [JsonProperty("useip")]
+    public int? Useip { get; set; }
 
-    [JsonProperty("ip")] public string? Ip { get; set; }
+    [JsonProperty("ip")]
+    public string? Ip { get; set; }
 
-    [JsonProperty("dns")] public string? Dns { get; set; }
+    [JsonProperty("dns")]
+    public string? Dns { get; set; }
 
-    [JsonProperty("port")] public string? Port { get; set; }
+    [JsonProperty("port")]
+    public string? Port { get; set; }
 
-    [JsonProperty("available")] public int? Available { get; set; }
 
-    [JsonProperty("error")] public string? Error { get; set; }
+    // todo: commented because update command failed
+    //////[JsonProperty("available")]
+    //////public int? Available { get; set; }
 
-    [JsonProperty("errors_from")] public string? ErrorsFrom { get; set; }
+    //////[JsonProperty("error")]
+    //////public string? Error { get; set; }
 
-    [JsonProperty("disable_until")] public string? DisableUntil { get; set; }
+    //////[JsonProperty("errors_from")]
+    //////public string? ErrorsFrom { get; set; }
+
+    //////[JsonProperty("disable_until")]
+    //////public string? DisableUntil { get; set; }
 
     #endregion
 
     #region Components
 
-    [JsonProperty("details")] public HostDetails? Details { get; set; }
-    [JsonProperty("hosts")] public IList<Host>? Hosts { get; set; }
-    [JsonProperty("items")] public IList<Item>? Items { get; set; }
+
+//todo: needs to be fixed cannot handle the details array 
+    // [JsonProperty("details")]
+    // public HostDetails? Details { get; set; }
+    [JsonProperty("hosts")]
+    public IList<Host>? Hosts { get; set; }
+    [JsonProperty("items")]
+    public IList<Item>? Items { get; set; }
 
     #endregion
 
@@ -107,7 +121,6 @@ public class HostInterface : BaseEntity
 
     public HostInterface()
     {
-
     }
 
     #endregion

@@ -8,12 +8,12 @@ namespace Zabbix.Services;
 
 public class AuditLogService : GetService<AuditLog, AuditLogFilterOptions>
 {
-    public AuditLogService(ICore core) : base(core, "auditlog")
+    public AuditLogService(ICore core)
+        : base(core, "auditlog")
     {
     }
-
-    
 }
+
 public class AuditLogFilterOptions : FilterOptions
 {
     #region Filter Properties

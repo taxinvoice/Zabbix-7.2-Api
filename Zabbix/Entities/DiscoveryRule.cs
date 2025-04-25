@@ -2,32 +2,40 @@
 
 namespace Zabbix.Entities;
 
-
 public class DiscoveryRule : BaseEntity
 {
     #region Properties
 
-    [JsonProperty("druleid")] public override string? EntityId { get; set; }
+    [JsonProperty("druleid")]
+    public override string? EntityId { get; set; }
 
-    [JsonProperty("iprange")] public string? IpRange { get; set; }
+    [JsonProperty("iprange")]
+    public string? IpRange { get; set; }
 
-    [JsonProperty("name")] public string? Name { get; set; }
+    [JsonProperty("name")]
+    public string? Name { get; set; }
 
-    [JsonProperty("delay")] public string? Delay { get; set; }
+    [JsonProperty("delay")]
+    public string? Delay { get; set; }
 
-    [JsonProperty("nextcheck")] public string? NextCheck { get; set; }
+    [JsonProperty("nextcheck")]
+    public string? NextCheck { get; set; }
 
-    [JsonProperty("proxy_hostid")] public string? ProxyHostId { get; set; }
+    [JsonProperty("proxy_hostid")]
+    public string? ProxyHostId { get; set; }
 
-    [JsonProperty("status")] public int? Status { get; set; }
+    [JsonProperty("status")]
+    public int? Status { get; set; }
 
     #endregion
 
     #region Components
 
-    [JsonProperty("dhosts")] public IList<DiscoveredHost>? DiscoveredHosts { get; set; }
+    [JsonProperty("dhosts")]
+    public IList<DiscoveredHost>? DiscoveredHosts { get; set; }
 
-    [JsonProperty("dchecks")] public IList<DiscoveryCheck>? DiscoveryChecks { get; set; }
+    [JsonProperty("dchecks")]
+    public IList<DiscoveryCheck>? DiscoveryChecks { get; set; }
 
     #endregion
 
@@ -42,7 +50,6 @@ public class DiscoveryRule : BaseEntity
 
     public DiscoveryRule()
     {
-
     }
 
     #endregion

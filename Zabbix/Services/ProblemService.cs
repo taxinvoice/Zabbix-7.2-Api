@@ -8,10 +8,10 @@ namespace Zabbix.Services;
 
 public class ProblemService : GetService<Problem, ProblemFilterOptions>
 {
-    public ProblemService(ICore core) : base(core, "problem")
+    public ProblemService(ICore core)
+        : base(core, "problem")
     {
     }
-
 }
 
 public class ProblemFilterOptions : FilterOptions

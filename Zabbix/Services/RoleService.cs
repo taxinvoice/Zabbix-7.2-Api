@@ -8,16 +8,15 @@ namespace Zabbix.Services;
 
 public class RoleService : CrudService<Role, RoleFilterOptions, RoleService.RoleResult>
 {
-    public RoleService(ICore core) : base(core, "role")
+    public RoleService(ICore core)
+        : base(core, "role")
     {
     }
 
-    
-
-
     public class RoleResult : BaseResult
     {
-        [JsonProperty("roleids")] public override IList<string>? Ids { get; set; }
+        [JsonProperty("roleids")]
+        public override IList<string>? Ids { get; set; }
     }
 }
 

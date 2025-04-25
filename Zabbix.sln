@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZabbixIntegrationTests", "Z
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zabbix", "Zabbix\Zabbix.csproj", "{F9CA7B03-C429-4820-B6E8-B8084D6980E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zabbix72", "Zabbix\Zabbix72.csproj", "{76FBBE14-8E33-08EB-638F-AE4D44622CFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F9CA7B03-C429-4820-B6E8-B8084D6980E1}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{F9CA7B03-C429-4820-B6E8-B8084D6980E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9CA7B03-C429-4820-B6E8-B8084D6980E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76FBBE14-8E33-08EB-638F-AE4D44622CFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76FBBE14-8E33-08EB-638F-AE4D44622CFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76FBBE14-8E33-08EB-638F-AE4D44622CFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76FBBE14-8E33-08EB-638F-AE4D44622CFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

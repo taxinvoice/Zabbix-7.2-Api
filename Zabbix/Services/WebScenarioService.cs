@@ -8,14 +8,15 @@ namespace Zabbix.Services;
 
 public class WebScenarioService : CrudService<WebScenario, WebScenarioFilterOptions, WebScenarioService.WebScenarioResult>
 {
-    public WebScenarioService(ICore core) : base(core, "httptest")
+    public WebScenarioService(ICore core)
+        : base(core, "httptest")
     {
     }
 
-
     public class WebScenarioResult : BaseResult
     {
-        [JsonProperty("httptestids")] public override IList<string>? Ids { get; set; }
+        [JsonProperty("httptestids")]
+        public override IList<string>? Ids { get; set; }
     }
 }
 

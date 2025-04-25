@@ -1,21 +1,25 @@
-﻿using Newtonsoft.Json;
-using Zabbix.Core;
+﻿using Zabbix.Core;
 using Zabbix.Entities;
 using Zabbix.Filter;
 
 namespace Zabbix.Services.CrudServices;
 
-public interface IGetService<TEntity, TEntityFilter> where TEntity : BaseEntity where TEntityFilter : FilterOptions
+public interface IGetService<TEntity, TEntityFilter>
+    where TEntity : BaseEntity
+    where TEntityFilter : FilterOptions
 {
     IEnumerable<TEntity> Get(TEntityFilter? filter = null);
     Task<IEnumerable<TEntity>> GetAsync(TEntityFilter? filter = null);
 }
 
-public class GetService<TEntity, TEntityFilter> : ServiceBase, IGetService<TEntity, TEntityFilter> 
-    where TEntity : BaseEntity 
+public class GetService<TEntity, TEntityFilter> : ServiceBase, IGetService<TEntity, TEntityFilter>
+    where TEntity : BaseEntity
     where TEntityFilter : FilterOptions
 {
-    public GetService(ICore core, string className) : base(core, className) { }
+    public GetService(ICore core, string className)
+        : base(core, className)
+    {
+    }
 
     public IEnumerable<TEntity> Get(TEntityFilter? filter = null)
     {
@@ -25,8 +29,8 @@ public class GetService<TEntity, TEntityFilter> : ServiceBase, IGetService<TEnti
     public async Task<IEnumerable<TEntity>> GetAsync(TEntityFilter? filter = null)
     {
         return await Core.SendRequestAsync<TEntity[]>(BuildParams(filter), ClassName + ".get");
-
     }
+
     public int CountOutput(TEntityFilter? filter = null)
     {
         var paramFilter = BuildParams(filter);
@@ -54,5 +58,4 @@ public class GetService<TEntity, TEntityFilter> : ServiceBase, IGetService<TEnti
         paramFilter.Add("preservekeys", true);
         return await Core.SendRequestAsync<Dictionary<string, TEntity>>(paramFilter, ClassName + ".get");
     }
-
 }

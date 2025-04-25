@@ -4,40 +4,36 @@ using Zabbix.Entities;
 using Zabbix.Filter;
 using Zabbix.Services.CrudServices;
 
-namespace Zabbix.Services
+namespace Zabbix.Services;
+
+public class MediaTypeService : CrudService<MediaType, MediaTypeFilterOptions, MediaTypeService.MediaTypeResult>
 {
-    public class MediaTypeService : CrudService<MediaType, MediaTypeFilterOptions, MediaTypeService.MediaTypeResult>
+    public MediaTypeService(ICore core)
+        : base(core, "mediatype")
     {
-
-        public MediaTypeService(ICore core) : base(core, "mediatype")
-        {
-
-        }
-
-        public class MediaTypeResult : BaseResult
-        {
-            [JsonProperty("mediatypeids")]
-            public override IList<string>? Ids { get; set; }
-        }
     }
 
-    public class MediaTypeFilterOptions : FilterOptions
+    public class MediaTypeResult : BaseResult
     {
         [JsonProperty("mediatypeids")]
-        public object? MediaTypeIds { get; set; }
-
-        [JsonProperty("mediaids")]
-        public object? MediaIds { get; set; }
-
-        [JsonProperty("userids")]
-        public object? UserIds { get; set; }
-
-        [JsonProperty("selectMessageTemplates")]
-        public string? SelectMessageTemplates { get; set; }
-
-        [JsonProperty("selectUsers")]
-        public string? SelectUsers { get; set; }
+        public override IList<string>? Ids { get; set; }
     }
+}
 
-    
+public class MediaTypeFilterOptions : FilterOptions
+{
+    [JsonProperty("mediatypeids")]
+    public object? MediaTypeIds { get; set; }
+
+    [JsonProperty("mediaids")]
+    public object? MediaIds { get; set; }
+
+    [JsonProperty("userids")]
+    public object? UserIds { get; set; }
+
+    [JsonProperty("selectMessageTemplates")]
+    public string? SelectMessageTemplates { get; set; }
+
+    [JsonProperty("selectUsers")]
+    public string? SelectUsers { get; set; }
 }

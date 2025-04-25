@@ -21,11 +21,14 @@ namespace ZabbixIntegrationTests
 
         public TestBase()
         {
-            string url = "http://localhost:809/api_jsonrpc.php";
+            string url = "http://10.0.13.134:9099/api_jsonrpc.php"; // 10.0.13.174
             string username = "Admin";
-            string password = "zabbix";
+            string password = "Congealed-Pyridine-Calabashes";
             Core = new ZabbixCore(url, username, password);
             Id = Guid.NewGuid();
+
+            List<Host> hosts = Core.Hosts.Get().ToList();
+
         }
 
         public abstract void SetUp();

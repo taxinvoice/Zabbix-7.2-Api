@@ -6,15 +6,17 @@ using Zabbix.Services.CrudServices;
 
 namespace Zabbix.Services;
 
-public class HostInterfaceService : CrudService<HostInterface, HostInterfaceFilterOptions,HostInterfaceService.HostInterfaceResult>
+public class HostInterfaceService : CrudService<HostInterface, HostInterfaceFilterOptions, HostInterfaceService.HostInterfaceResult>
 {
-    public HostInterfaceService(ICore core) : base(core, "hostinterface")
+    public HostInterfaceService(ICore core)
+        : base(core, "hostinterface")
     {
     }
 
     public class HostInterfaceResult : BaseResult
     {
-        [JsonProperty("interfaceids")] public override IList<string>? Ids { get; set; }
+        [JsonProperty("interfaceids")]
+        public override IList<string>? Ids { get; set; }
     }
 }
 

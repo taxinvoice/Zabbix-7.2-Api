@@ -2,7 +2,6 @@
 
 namespace Zabbix.Entities
 {
-
     public class Correlation : BaseEntity
     {
         #region Properties
@@ -23,8 +22,10 @@ namespace Zabbix.Entities
 
         #region Components
 
-        [JsonProperty("operations")] public IList<CorrelationOperation>? Operations { get; set; }
-        [JsonProperty("filter")] public CorrelationFilter? Filter { get; set; }
+        [JsonProperty("operations")]
+        public IList<CorrelationOperation>? Operations { get; set; }
+        [JsonProperty("filter")]
+        public CorrelationFilter? Filter { get; set; }
 
         #endregion
 
@@ -37,12 +38,14 @@ namespace Zabbix.Entities
             Name = name;
         }
 
-        public Correlation(){}
+        public Correlation()
+        {
+        }
 
         #endregion
     }
-
 }
+
 public class CorrelationOperation
 {
     #region Properties
@@ -54,18 +57,15 @@ public class CorrelationOperation
 
     #region Constructors
 
-    public CorrelationOperation(int type)
-    {
-        Type = type;
-    }
+    public CorrelationOperation(int type) => Type = type;
 
     public CorrelationOperation()
     {
-
     }
     #endregion
 
 }
+
 public class CorrelationFilterCondition
 {
     #region Properties
@@ -98,14 +98,10 @@ public class CorrelationFilterCondition
 
     #region Constructors
 
-    public CorrelationFilterCondition(int type)
-    {
-        Type = type;
-    }
+    public CorrelationFilterCondition(int type) => Type = type;
 
     public CorrelationFilterCondition()
     {
-
     }
 
     #endregion
@@ -139,7 +135,6 @@ public class CorrelationFilter
 
     public CorrelationFilter()
     {
-
     }
 
     #endregion

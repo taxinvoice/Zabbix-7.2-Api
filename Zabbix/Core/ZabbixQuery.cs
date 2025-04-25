@@ -1,66 +1,47 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-namespace Zabbix.Core
+namespace Zabbix.Core;
+
+public class ZabbixQuery
 {
-    public class ZabbixQuery
-    {
-        public object Value { get; set; }
+    public object Value { get; set; }
 
-        public ZabbixQuery()
-        {
-            Value = "extend";
-        }
-        public ZabbixQuery(string queryStr)
-        {
-            if (queryStr == "extend")
-                Value = queryStr;
-            else
-            {
-                Value = new[] { queryStr };
-            }
-        }
-        public ZabbixQuery(params string[] queryStr)
-        {
-            Value = queryStr;
-        }
-        public ZabbixQuery(IEnumerable<string> queryStrings)
-        {
-            Value = queryStrings;
-        }
-        public ZabbixQuery(object value)
-        {
-            Value = value;
-        }
+    public ZabbixQuery() => Value = "extend";
+
+    public ZabbixQuery(string queryStr) => Value = queryStr == "extend" ? queryStr : new[] { queryStr };
+
+    public ZabbixQuery(params string[] queryStr) => Value = queryStr;
+
+    public ZabbixQuery(IEnumerable<string> queryStrings) => Value = queryStrings;
+
+    public ZabbixQuery(object value) => Value = value;
+}
+
+public class ZabbixQueryConverter : JsonConverter<ZabbixQuery>
+{
+    public override ZabbixQuery? ReadJson(JsonReader reader, Type objectType, ZabbixQuery? existingValue, bool hasExistingValue, JsonSerializer serializer)
+    {
+        var token = JToken.Load(reader);
+        object? obj = token.ToObject<object>();
+        return obj == null ? null : new ZabbixQuery(obj);
     }
-    public class ZabbixQueryConverter : JsonConverter<ZabbixQuery>
+
+    public override void WriteJson(JsonWriter writer, ZabbixQuery? value, JsonSerializer serializer)
     {
-        public override ZabbixQuery? ReadJson(JsonReader reader, Type objectType, ZabbixQuery? existingValue, bool hasExistingValue, JsonSerializer serializer)
+        if (value == null)
         {
-            var token = JToken.Load(reader);
-            var obj = token.ToObject<object>();
-            return obj == null ? null : new ZabbixQuery(obj);
+            return;
         }
 
-        public override void WriteJson(JsonWriter writer, ZabbixQuery? value, JsonSerializer serializer)
+        var token = value.Value switch
         {
-            if(value == null){
-                return;
-            }
+            string stringValue => new JValue(stringValue),
+            string[] stringArray => JArray.FromObject(stringArray),
+            IEnumerable<string> stringArray => JArray.FromObject(stringArray),
+            _ => JToken.FromObject(value.Value)
+        };
 
-            var token = value.Value switch {
-                string stringValue => new JValue(stringValue),
-                string[] stringArray => JArray.FromObject(stringArray),
-                IEnumerable<string> stringArray => JArray.FromObject(stringArray),
-                _ => JToken.FromObject(value.Value)
-            };
-
-            token.WriteTo(writer);
-        }
+        token.WriteTo(writer);
     }
 }

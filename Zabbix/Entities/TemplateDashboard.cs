@@ -1,144 +1,150 @@
 ﻿using Newtonsoft.Json;
 
-namespace Zabbix.Entities
+namespace Zabbix.Entities;
+
+public class TemplateDashboard : BaseEntity
 {
-    public class TemplateDashboard : BaseEntity
+    #region Properties
+
+    [JsonProperty("dashboardid")]
+    public override string? EntityId { get; set; }
+
+    [JsonProperty("name")]
+    public string? Name { get; set; }
+
+    [JsonProperty("templateid")]
+    public string? TemplateId { get; set; }
+
+    [JsonProperty("display_period")]
+    public int? DisplayPeriod { get; set; }
+
+    [JsonProperty("auto_start")]
+    public int? AutoStart { get; set; }
+
+    [JsonProperty("uuid")]
+    public string? Uuid { get; set; }
+
+    #endregion
+
+    #region Components
+
+    [JsonProperty("pages")]
+    public IList<TemplateDashboardPage>? Pages { get; set; }
+
+    #endregion
+
+    #region Constructors
+
+    public TemplateDashboard(string name, string templateId)
     {
-        #region Properties
-
-        [JsonProperty("dashboardid")]
-        public override string? EntityId { get; set; }
-
-        [JsonProperty("name")]
-        public string? Name { get; set; }
-
-        [JsonProperty("templateid")]
-        public string? TemplateId { get; set; }
-
-        [JsonProperty("display_period")]
-        public int? DisplayPeriod { get; set; }
-
-        [JsonProperty("auto_start")]
-        public int? AutoStart { get; set; }
-
-        [JsonProperty("uuid")]
-        public string? Uuid { get; set; }
-
-        #endregion
-
-        #region Components
-
-        [JsonProperty("pages")]
-        public IList<TemplateDashboardPage>? Pages { get; set; }
-
-        #endregion
-
-        #region Constructors
-
-        public TemplateDashboard(string name, string templateId)
-        {
-            Name = name;
-            TemplateId = templateId;
-        }
-
-        public TemplateDashboard() { }
-
-        #endregion
-
+        Name = name;
+        TemplateId = templateId;
     }
-    public class TemplateDashboardPage
+
+    public TemplateDashboard()
     {
-        #region Properties
-
-        [JsonProperty("dashboard_pageid")]
-        public string? DashboardPageId { get; set; }
-
-        [JsonProperty("name")]
-        public string? Name { get; set; }
-
-        [JsonProperty("display_period")]
-        public int? DisplayPeriod { get; set; }
-
-        #endregion
-
-        #region Components
-
-        [JsonProperty("widgets")]
-        public IList<TemplateDashboardWidget>? Widgets { get; set; }
-
-        #endregion
-
     }
-    public class TemplateDashboardWidget
+
+    #endregion
+
+}
+
+public class TemplateDashboardPage
+{
+    #region Properties
+
+    [JsonProperty("dashboard_pageid")]
+    public string? DashboardPageId { get; set; }
+
+    [JsonProperty("name")]
+    public string? Name { get; set; }
+
+    [JsonProperty("display_period")]
+    public int? DisplayPeriod { get; set; }
+
+    #endregion
+
+    #region Components
+
+    [JsonProperty("widgets")]
+    public IList<TemplateDashboardWidget>? Widgets { get; set; }
+
+    #endregion
+
+}
+
+public class TemplateDashboardWidget
+{
+    #region Properties
+
+    [JsonProperty("widgetid")]
+    public string? WidgetId { get; set; }
+
+    [JsonProperty("type")]
+    public string? Type { get; set; }
+
+    [JsonProperty("name")]
+    public string? Name { get; set; }
+
+    [JsonProperty("x")]
+    public int? X { get; set; }
+
+    [JsonProperty("y")]
+    public int? Y { get; set; }
+
+    [JsonProperty("width")]
+    public int? Width { get; set; }
+
+    [JsonProperty("height")]
+    public int? Height { get; set; }
+
+    [JsonProperty("view_mode")]
+    public int? ViewMode { get; set; }
+
+    #endregion
+
+    #region Components
+
+    [JsonProperty("fields")]
+    public IList<TemplateDashboardWidgetField>? Fields { get; set; }
+
+    #endregion
+
+    #region Constructors
+
+    public TemplateDashboardWidget(string type) => Type = type;
+
+    public TemplateDashboardWidget()
     {
-        #region Properties
-
-        [JsonProperty("widgetid")]
-        public string? WidgetId { get; set; }
-
-        [JsonProperty("type")]
-        public string? Type { get; set; }
-
-        [JsonProperty("name")]
-        public string? Name { get; set; }
-
-        [JsonProperty("x")]
-        public int? X { get; set; }
-
-        [JsonProperty("y")]
-        public int? Y { get; set; }
-
-        [JsonProperty("width")]
-        public int? Width { get; set; }
-
-        [JsonProperty("height")]
-        public int? Height { get; set; }
-
-        [JsonProperty("view_mode")]
-        public int? ViewMode { get; set; }
-
-        #endregion
-
-        #region Components
-
-        [JsonProperty("fields")]
-        public IList<TemplateDashboardWidgetField>? Fields { get; set; }
-
-        #endregion
-
-        #region Constructors
-
-        public TemplateDashboardWidget(string type)
-        {
-            Type = type;
-        }
-        public TemplateDashboardWidget() { }
-
-        #endregion    
     }
-    public class TemplateDashboardWidgetField
+
+    #endregion
+}
+
+public class TemplateDashboardWidgetField
+{
+    #region Properties
+
+    [JsonProperty("type")]
+    public int? Type { get; set; }
+
+    [JsonProperty("name")]
+    public string? Name { get; set; }
+
+    [JsonProperty("value")]
+    public object? Value { get; set; }
+
+    #endregion
+
+    #region Constructors
+    public TemplateDashboardWidgetField(int type, object value)
     {
-        #region Properties
-
-        [JsonProperty("type")]
-        public int? Type { get; set; }
-
-        [JsonProperty("name")]
-        public string? Name { get; set; }
-
-        [JsonProperty("value")]
-        public object? Value { get; set; }
-
-        #endregion
-
-        #region Constructors
-        public TemplateDashboardWidgetField(int type, object value)
-        {
-            Type = type;
-            Value = value;
-        }
-
-        public TemplateDashboardWidgetField() { }
-        #endregion
+        Type = type;
+        Value = value;
     }
+
+    public TemplateDashboardWidgetField()
+    {
+    }
+    #endregion
 }

@@ -9,13 +9,15 @@ namespace Zabbix.Services;
 public class
     TemplateService : CrudService<Template, TemplateFilterOptions, TemplateService.TemplateResult>
 {
-    public TemplateService(ICore core) : base(core, "template")
+    public TemplateService(ICore core)
+        : base(core, "template")
     {
     }
 
     public class TemplateResult : BaseResult
     {
-        [JsonProperty("templateids")] public override IList<string>? Ids { get; set; }
+        [JsonProperty("templateids")]
+        public override IList<string>? Ids { get; set; }
     }
 }
 

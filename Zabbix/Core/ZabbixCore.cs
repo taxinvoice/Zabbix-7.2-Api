@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Text;
+using Newtonsoft.Json;
 using Zabbix.Entities;
 using Zabbix.Services;
 
@@ -13,18 +13,29 @@ public class ZabbixCore : IZabbixCore
     private User? _loggedInUser;
     private readonly JsonSerializerSettings _serializerSettings;
     private readonly string _url;
+    
+    /// <summary>
+    /// Whether to log HTTP requests and responses
+    /// </summary>
+    public bool EnableLogging { get; set; } = true;
+    
+    /// <summary>
+    /// Action that handles log messages when logging is enabled
+    /// </summary>
+    public Action<string>? Logger { get; set; }
 
     public ZabbixCore(string url, string username, string password, string? authenticationToken = null)
     {
-
         if (password == null)
         {
             throw new ArgumentNullException(nameof(password));
         }
+
         if (url == null)
         {
             throw new ArgumentNullException(nameof(url));
         }
+
         if (username == null)
         {
             throw new ArgumentNullException(nameof(username));
@@ -35,11 +46,11 @@ public class ZabbixCore : IZabbixCore
             NullValueHandling = NullValueHandling.Ignore,
         };
 
-        //Todo: do this using reflection
+        // Todo: do this using reflection
         _url = url;
         _httpClient = new HttpClient();
         GraphItems = new GraphItemService(this);
-        AutoRegistration = new(this);
+        AutoRegistration = new (this);
         Correlations = new CorrelationService(this);
         Hosts = new HostService(this);
         HostGroups = new HostGroupService(this);
@@ -107,7 +118,7 @@ public class ZabbixCore : IZabbixCore
     {
         lock (_httpClient)
         {
-            var token = CheckAndGetToken();
+            string? token = CheckAndGetToken();
             return SendRequest<T>(@params, method, token);
         }
     }
@@ -118,15 +129,27 @@ public class ZabbixCore : IZabbixCore
         {
             var request = GetRequest(@params, method, token);
             string json = JsonConvert.SerializeObject(request, _serializerSettings);
-            var requestData = new StringContent(JsonConvert.SerializeObject(request, _serializerSettings), Encoding.UTF8, "application/json");
+            var requestData = new StringContent(json, Encoding.UTF8, "application/json");
 
             // add bearer token
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            var response = _httpClient.PostAsync(_url, requestData).Result;
-            response.EnsureSuccessStatusCode();
+            // Log request if enabled
+            if (EnableLogging && Logger != null)
+            {
+                Logger($"REQUEST to {_url}:\n{json}");
+            }
 
-            var responseData = response.Content.ReadAsStringAsync().Result;
+            var response = _httpClient.PostAsync(_url, requestData).Result;
+            string responseData = response.Content.ReadAsStringAsync().Result;
+            
+            // Log response if enabled
+            if (EnableLogging && Logger != null)
+            {
+                Logger($"RESPONSE from {_url} (Status: {response.StatusCode}):\n{responseData}");
+            }
+            
+            response.EnsureSuccessStatusCode();
             var ret = HandleResponse<T>(request.Id, responseData);
 
             return ret;
@@ -135,22 +158,35 @@ public class ZabbixCore : IZabbixCore
 
     public async Task<T> SendRequestAsync<T>(object? @params, string method)
     {
-        var token = CheckAndGetToken();
+        string? token = CheckAndGetToken();
         return await SendRequestAsync<T>(@params, method, token);
     }
 
     public virtual async Task<T> SendRequestAsync<T>(object? @params, string method, string? token)
     {
         var request = GetRequest(@params, method, token);
-        var requestData = new StringContent(JsonConvert.SerializeObject(request, _serializerSettings), Encoding.UTF8, "application/json");
+        string json = JsonConvert.SerializeObject(request, _serializerSettings);
+        var requestData = new StringContent(json, Encoding.UTF8, "application/json");
 
         // add bearer token
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        
+        // Log request if enabled
+        if (EnableLogging && Logger != null)
+        {
+            Logger($"REQUEST to {_url}:\n{json}");
+        }
 
         var response = await _httpClient.PostAsync(_url, requestData).ConfigureAwait(false);
+        string responseData = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+        
+        // Log response if enabled
+        if (EnableLogging && Logger != null)
+        {
+            Logger($"RESPONSE from {_url} (Status: {response.StatusCode}):\n{responseData}");
+        }
+        
         response.EnsureSuccessStatusCode();
-
-        var responseData = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         return HandleResponse<T>(request.Id, responseData);
     }
 
@@ -205,8 +241,11 @@ public class ZabbixCore : IZabbixCore
 
     private string? CheckAndGetToken()
     {
-        var token = _authenticationToken;
-        if (token == "") throw new InvalidOperationException("This zabbix core isn't authenticated.");
+        string? token = _authenticationToken;
+        if (token == "")
+        {
+            throw new InvalidOperationException("This zabbix core isn't authenticated.");
+        }
 
         return token;
     }
@@ -269,8 +308,6 @@ public class ZabbixCore : IZabbixCore
     public ApiInfoService ApiInfo { get; }
     public GraphService Graphs { get; }
     public MapService Maps { get; }
-
-
 
     #endregion
 }

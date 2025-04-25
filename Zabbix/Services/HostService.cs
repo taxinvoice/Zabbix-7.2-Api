@@ -6,19 +6,19 @@ using Zabbix.Services.CrudServices;
 
 namespace Zabbix.Services;
 
-
 public class HostService : MassCrudService<Host, HostFilterOptions, HostService.HostResult>
 {
-    public HostService(ICore core) : base(core, "host")
+    public HostService(ICore core)
+        : base(core, "host")
     {
     }
-
-
 
     public class HostResult : BaseResult
     {
-        [JsonProperty("hostids")] public override IList<string>? Ids { get; set; }
+        [JsonProperty("hostids")]
+        public override IList<string>? Ids { get; set; }
     }
+
     /*
     public override Dictionary<string, object> BuildMassParams(IEnumerable<Host> entities, Host properties, Dictionary<string, object>? @params = null)
     {
@@ -43,7 +43,6 @@ public class HostService : MassCrudService<Host, HostFilterOptions, HostService.
         throw new NotImplementedException();
     }
     */
-
 }
 
 public class HostFilterOptions : FilterOptions

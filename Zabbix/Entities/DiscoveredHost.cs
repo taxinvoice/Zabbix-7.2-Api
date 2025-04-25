@@ -2,7 +2,6 @@
 
 namespace Zabbix.Entities;
 
-
 public class DiscoveredHost : BaseEntity
 {
     #region Properties
@@ -26,8 +25,10 @@ public class DiscoveredHost : BaseEntity
 
     #region Components
 
-    [JsonProperty("drules")] public IList<DiscoveryRule>? DiscoveryRules { get; set; }
-    [JsonProperty("dservices")] public IList<DiscoveredService>? DiscoveredServices { get; set; }
+    [JsonProperty("drules")]
+    public IList<DiscoveryRule>? DiscoveryRules { get; set; }
+    [JsonProperty("dservices")]
+    public IList<DiscoveredService>? DiscoveredServices { get; set; }
 
     #endregion
 }

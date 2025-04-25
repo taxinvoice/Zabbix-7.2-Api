@@ -8,16 +8,18 @@ namespace Zabbix.Services;
 
 public class ActionService : CrudService<Action, ActionFilterOptions, ActionService.ActionResult>
 {
-    public ActionService(ICore core) : base(core, "action")
+    public ActionService(ICore core)
+        : base(core, "action")
     {
     }
 
     public class ActionResult : BaseResult
     {
-        [JsonProperty("actionids")] public override IList<string>? Ids { get; set; }
+        [JsonProperty("actionids")]
+        public override IList<string>? Ids { get; set; }
     }
-  
 }
+
 public class ActionFilterOptions : FilterOptions
 {
     #region FilterProps

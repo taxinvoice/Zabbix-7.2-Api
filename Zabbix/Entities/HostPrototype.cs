@@ -39,14 +39,22 @@ public class HostPrototype : BaseEntity
     #endregion
 
     #region Components
-    [JsonProperty("discoveryRule")] public IList<DiscoveryRule>? DiscoveryRules { get; set; }
-    [JsonProperty("interfaces")] public IList<CustomInterface>? Interfaces { get; set; }
-    [JsonProperty(" groupLinks")] public IList<GroupLink>? GroupLinks { get; set; }
-    [JsonProperty("groupPrototypes")] public IList<GroupPrototype>? GroupPrototypes { get; set; }
-    [JsonProperty("macros")] public IList<UserMacro>? Macros { get; set; }
-    [JsonProperty("tags")] public IList<Tag>? Tags { get; set; }
-    [JsonProperty("parentHost")] public IList<Host>? ParentHosts { get; set; }
-    [JsonProperty("templates")] public IList<Template>? Templates { get; set; }
+    [JsonProperty("discoveryRule")]
+    public IList<DiscoveryRule>? DiscoveryRules { get; set; }
+    [JsonProperty("interfaces")]
+    public IList<CustomInterface>? Interfaces { get; set; }
+    [JsonProperty(" groupLinks")]
+    public IList<GroupLink>? GroupLinks { get; set; }
+    [JsonProperty("groupPrototypes")]
+    public IList<GroupPrototype>? GroupPrototypes { get; set; }
+    [JsonProperty("macros")]
+    public IList<UserMacro>? Macros { get; set; }
+    [JsonProperty("tags")]
+    public IList<Tag>? Tags { get; set; }
+    [JsonProperty("parentHost")]
+    public IList<Host>? ParentHosts { get; set; }
+    [JsonProperty("templates")]
+    public IList<Template>? Templates { get; set; }
     #endregion
 
     #region Constructors
@@ -58,9 +66,12 @@ public class HostPrototype : BaseEntity
         Host = hostName;
     }
 
-    public HostPrototype(){}
+    public HostPrototype()
+    {
+    }
     #endregion
 }
+
 public class GroupLink
 {
     #region Properties
@@ -72,14 +83,10 @@ public class GroupLink
 
     #region Constructors
 
-    public GroupLink(string groupId)
-    {
-        GroupId = groupId;
-    }
+    public GroupLink(string groupId) => GroupId = groupId;
 
     public GroupLink()
     {
-
     }
     #endregion
 
@@ -96,18 +103,17 @@ public class GroupPrototype
 
     #region Constructors
 
-    public GroupPrototype(string name)
+    public GroupPrototype(string name) => Name = name;
+
+    public GroupPrototype()
     {
-        Name = name;
     }
-    public GroupPrototype(){}
     #endregion
 
 }
 
 public class CustomInterfaceDetails
 {
-
     #region Properties
 
     [JsonProperty("version")]
@@ -144,12 +150,11 @@ public class CustomInterfaceDetails
 
     #region Constructors
 
-    public CustomInterfaceDetails(int version)
+    public CustomInterfaceDetails(int version) => Version = version;
+
+    public CustomInterfaceDetails()
     {
-        Version = version;
     }
-    public CustomInterfaceDetails(){}
-    
 
     #endregion
 
@@ -199,8 +204,4 @@ public class CustomInterface
     #endregion
 
 }
-
-
-
-
 
